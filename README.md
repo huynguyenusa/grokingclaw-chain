@@ -1,68 +1,76 @@
-# IOTA
+# GrokingClaw Chain
 
-IOTA is a asset-oriented programming model powered by the
-[Move programming language](https://move-language.github.io/move/introduction.html). IOTA is a project under active
-development by the [IOTA Foundation](https://iota.org).
+**The Agent Transaction Layer.** A Layer 1 blockchain purpose-built for AI agent identity and payments.
 
-## Setup
+Forked from [IOTA Rebased](https://github.com/iotaledger/iota) (Apache 2.0).
 
-- [Install Rust][install-rust]
+## Why
 
-### Conventions
+AI agents need to transact. They need identity. Today these are separate systems — pay here, authenticate there. GrokingClaw Chain unifies them: **one key pair, one chain, one identity that is also a wallet.**
 
-The Rust language conventions used in this repository can be found in [Rust Conventions](./RUST_CONVENTIONS.md).
+- **Free identity** — [GrokingClawID](https://github.com/huynguyenusa/grokingclawid) issues agent identities at zero cost
+- **Same keys** — Ed25519 + ML-DSA-65 (post-quantum) key pairs sign identity AND transactions
+- **Agent-native** — Sponsored transactions, MoveVM smart contracts, sub-second finality
+- **Revenue model** — Protocol-level fees on every agent transaction
 
-### Formatting
+## What We Inherit from IOTA Rebased
 
-**Rust**
+- ✅ MoveVM smart contracts (battle-tested, from Sui)
+- ✅ Ed25519-native cryptography (same as GrokingClawID)
+- ✅ Object-based ledger (perfect for agent identity objects)
+- ✅ Sponsored transactions (agents don't need gas to start)
+- ✅ Delegated Proof of Stake + validator system
+- ✅ Full Rust codebase
+- ✅ Sub-second finality
 
-In order to use the unstable features specified in rustfmt.toml, you must have the correct nightly toolchain component
-installed.
+## What We're Adding
 
-```sh
-rustup toolchain install nightly --component rustfmt --allow-downgrade
+- 🔧 Agent identity as a native on-chain object (GrokingClawID integration)
+- 🔧 Delegation chain verification in Move smart contracts
+- 🔧 Agent-to-agent payment primitives
+- 🔧 Post-quantum signature verification on-chain (ML-DSA-65)
+- 🔧 Customized tokenomics for high-volume, low-fee agent transactions
+
+## Architecture
+
+```
+┌─────────────────────────────────────────┐
+│           GrokingClaw Stack             │
+├─────────────────────────────────────────┤
+│  GrokingClawID    — Free agent identity │
+│  GrokingClaw      — Output validation   │
+│  GrokingClawWatch — Monitoring (Q2)     │
+├─────────────────────────────────────────┤
+│  GrokingClaw Chain (this repo)          │
+│  ├── Agent identity objects             │
+│  ├── Agent wallet + payments            │
+│  ├── Delegation chain contracts         │
+│  └── MoveVM smart contracts             │
+├─────────────────────────────────────────┤
+│  IOTA Rebased (consensus + networking)  │
+│  ├── Mysticeti consensus                │
+│  ├── Object-based ledger                │
+│  └── DPoS validator system              │
+└─────────────────────────────────────────┘
 ```
 
-This can be used regardless of the default toolchain to format the code using the following command.
+## Status
 
-```sh
-cargo +nightly fmt
-```
+🚧 **Pre-alpha** — Forked and building. Not ready for production.
 
-**TOML**
+## License
 
-In order to format `toml` files, we use `dprint`. It can be installed either via `npm` or via `cargo`.
+Apache License 2.0 — see [LICENSE](LICENSE).
 
-```sh
-cargo install dprint
-```
+Original work: Copyright © IOTA Foundation.
+Modifications: Copyright © 2026 GrokingClaw Labs.
 
-or
+## Links
 
-```sh
-npm install -g dprint
-```
+- [GrokingClawID](https://github.com/huynguyenusa/grokingclawid) — Free agent identity (Rust, post-quantum)
+- [GrokingClaw](https://grokingclaw.com) — Agent trust infrastructure
+- [IOTA Rebased](https://github.com/iotaledger/iota) — Upstream source
 
-Simply run `dprint fmt` in the root of the repository to format all applicable files.
-Similarly, run `dprint check` to check whether all files are correctly formatted.
+---
 
-#### IDE Configuration
-
-For convenience, it is recommended that developers configure their IDEs to automatically format files on save.
-
-#### VS Code
-
-`settings.json`
-
-```json
-{
-  "[rust]": {
-    "editor.formatOnSave": true,
-  },
-  "rust-analyzer.rustfmt.extraArgs": [
-    "+nightly"
-  ]
-}
-```
-
-[install-rust]: https://www.rust-lang.org/tools/install
+*Understand deep. Grip tight. 🦀*
