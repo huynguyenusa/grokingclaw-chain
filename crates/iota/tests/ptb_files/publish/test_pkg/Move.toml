@@ -1,0 +1,8 @@
+[package]
+name = "test_pkg"
+edition = "2024"
+
+[dependencies]
+
+[addresses]
+test_pkg = "0x0"

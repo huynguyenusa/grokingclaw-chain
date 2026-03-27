@@ -1,0 +1,123 @@
+{
+	"ui": "tui",
+	"$schema": "https://turbo.build/schema.json",
+	"tasks": {
+		"lint": { },
+		"lint:fix": {
+			"dependsOn": ["^build"]
+		},
+		"prettier:fix": {
+			"cache": false
+		},
+		"test": {
+			"dependsOn": ["^build", "build"],
+			"outputs": ["coverage/**"]
+		},
+		"dev": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		},
+		"codegen": {
+			"dependsOn": ["^codegen"],
+			"cache": false,
+			"persistent": false
+		},
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		},
+		"build:rc": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		},
+		"build:nightly": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		},
+		"dev:firefox": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		},
+		"build:firefox": {
+			"dependsOn": ["^build"],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		},
+		"build:firefox:rc": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		},
+		"build:firefox:nightly": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": [
+				"build/**",
+				"dist/**",
+				"storybook-static/**",
+				".next/**",
+				"!.next/cache/**",
+				"pkg/**"
+			]
+		}
+	},
+	"globalEnv": [
+		"VERCEL_ENV",
+		"DEFAULT_NETWORK",
+		"IOTA_NETWORKS",
+		"RC_VERSION",
+		"APPS_BACKEND",
+		"SENTRY_AUTH_TOKEN",
+		"SENTRY_ENABLED",
+		"BUILD_ENV"
+	],
+	"globalDependencies": [
+		".eslintrc.js",
+		"prettier.config.js",
+		".prettierignore",
+		"sdk/.env",
+		"sdk/.env.defaults"
+	]
+}

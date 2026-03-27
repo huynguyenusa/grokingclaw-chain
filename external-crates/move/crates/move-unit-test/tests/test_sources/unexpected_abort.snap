@@ -1,0 +1,75 @@
+---
+source: crates/move-unit-test/tests/move_unit_test_testsuite.rs
+---
+Running Move unit tests
+[ PASS    ] 0x6::M::correct_abort_code
+[ PASS    ] 0x6::M::just_test_failure
+[ FAIL    ] 0x6::M::unexpected_abort
+[ FAIL    ] 0x6::M::unexpected_abort_in_native_function
+[ FAIL    ] 0x6::M::unexpected_abort_in_other_function
+[ FAIL    ] 0x6::M::wrong_abort_code
+
+Test failures:
+
+Failures in 0x6::M:
+
+┌── unexpected_abort ──────
+│ error[E11001]: test failure
+│   ┌─ unexpected_abort.move:4:9
+│   │
+│ 3 │     public fun unexpected_abort() {
+│   │                ---------------- In this function in 0x6::M
+│ 4 │         abort 0
+│   │         ^^^^^^^ Test was not expected to error, but it aborted with code 0 originating in the module 0x6::M rooted here
+│ 
+│ 
+└──────────────────
+
+
+┌── unexpected_abort_in_native_function ──────
+│ error[E11001]: test failure
+│     ┌─ string.move:119:12
+│     │
+│ 119 │ native fun internal_sub_string(v: &vector<u8>, i: u64, j: u64): vector<u8>;
+│     │            ^^^^^^^^^^^^^^^^^^^
+│     │            │
+│     │            Test was not expected to error, but it aborted with code 1 originating in the module std::string rooted here
+│     │            In this function in std::string
+│ 
+│ 
+│ stack trace
+│ 	M::abort_in_native(tests/test_sources/unexpected_abort.move:42)
+│ 	M::unexpected_abort_in_native_function(tests/test_sources/unexpected_abort.move:38)
+│ 
+└──────────────────
+
+
+┌── unexpected_abort_in_other_function ──────
+│ error[E11001]: test failure
+│    ┌─ unexpected_abort.move:27:9
+│    │
+│ 26 │     fun abort_in_other_function() {
+│    │         ----------------------- In this function in 0x6::M
+│ 27 │         abort 1
+│    │         ^^^^^^^ Test was not expected to error, but it aborted with code 1 originating in the module 0x6::M rooted here
+│ 
+│ 
+│ stack trace
+│ 	M::unexpected_abort_in_other_function(tests/test_sources/unexpected_abort.move:32)
+│ 
+└──────────────────
+
+
+┌── wrong_abort_code ──────
+│ error[E11001]: test failure
+│    ┌─ unexpected_abort.move:10:9
+│    │
+│  9 │     public fun wrong_abort_code() {
+│    │                ---------------- In this function in 0x6::M
+│ 10 │         abort 0
+│    │         ^^^^^^^ Test did not error as expected. Expected test to abort with code 1 originating in the module 0x6::M but instead it aborted with code 0 originating in the module 0x6::M rooted here
+│ 
+│ 
+└──────────────────
+
+Test result: FAILED. Total tests: 6; passed: 2; failed: 4
