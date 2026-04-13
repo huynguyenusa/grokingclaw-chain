@@ -1,0 +1,11 @@
+[package]
+name = "AgentIdentity"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+Iota = { local = "../../crates/iota-framework/packages/iota-framework" }
+MoveStdlib = { local = "../../crates/iota-framework/packages/move-stdlib" }
+
+[addresses]
+agent_identity = "0x0"

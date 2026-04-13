@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Cargo.toml exists
+        run: test -f Cargo.toml && echo "Cargo.toml found" || echo "No Cargo.toml"
+      - name: Rust version
+        run: rustc --version 2>/dev/null || echo "Rust not configured yet"

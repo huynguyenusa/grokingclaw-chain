@@ -114,3 +114,9 @@ crates/iota-aws-orchestrator/assets/logs/
 
 # ignore explorer files
 apps/explorer/public/*.wasm
+
+# GrokingClaw localnet secrets - NEVER commit
+localnet-config/iota.keystore
+localnet-config/genesis.blob
+localnet-config/*.yaml
+localnet-config/
