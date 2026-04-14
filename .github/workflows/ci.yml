@@ -11,7 +11,7 @@ jobs:
     name: Build check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Check Cargo.toml exists
         run: test -f Cargo.toml && echo "Cargo.toml found" || echo "No Cargo.toml"
       - name: Rust version
